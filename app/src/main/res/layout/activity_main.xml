@@ -51,6 +51,17 @@
         android:visibility="invisible"
         app:backgroundTint="#fcf9f9">
     </android.support.design.widget.FloatingActionButton>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginBottom="160dp"
+        android:src="@android:drawable/ic_menu_mylocation"
+        android:visibility="invisible"
+        app:backgroundTint="#fcf9f9">
+    </android.support.design.widget.FloatingActionButton>
 
 
 </android.support.design.widget.CoordinatorLayout>

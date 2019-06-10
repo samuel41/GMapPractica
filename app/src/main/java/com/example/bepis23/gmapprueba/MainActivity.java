@@ -19,6 +19,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         FloatingActionButton fab_1 = (FloatingActionButton)findViewById(R.id.fab_1);
         FloatingActionButton fab_2 = (FloatingActionButton)findViewById(R.id.fab_2);
+        FloatingActionButton fab_3 = (FloatingActionButton)findViewById(R.id.fab_3);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("RestrictedApi")
@@ -63,6 +65,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }else{
                     fab_2.setVisibility(View.INVISIBLE);
                 }
+                FloatingActionButton fab_3 = (FloatingActionButton) findViewById(R.id.fab_3);
+                if (fab_3.getVisibility() != View.VISIBLE) {
+                    fab_3.setVisibility(View.VISIBLE);
+                }else{
+                    fab_3.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
@@ -73,9 +81,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View view) {
                 FloatingActionButton fab_1 = (FloatingActionButton) findViewById(R.id.fab_1);
                 FloatingActionButton fab_2 = (FloatingActionButton) findViewById(R.id.fab_2);
+                FloatingActionButton fab_3 = (FloatingActionButton) findViewById(R.id.fab_3);
                 if (fab_1.getVisibility() == View.VISIBLE) {
                     fab_1.setVisibility(View.INVISIBLE);
                     fab_2.setVisibility(View.INVISIBLE);
+                    fab_3.setVisibility(View.INVISIBLE);
                 }
                 if (mMap.getMyLocation() != null)
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude()), 15));
@@ -88,9 +98,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View view) {
                 FloatingActionButton fab_1 = (FloatingActionButton) findViewById(R.id.fab_1);
                 FloatingActionButton fab_2 = (FloatingActionButton) findViewById(R.id.fab_2);
+                FloatingActionButton fab_3 = (FloatingActionButton) findViewById(R.id.fab_3);
                 if (fab_1.getVisibility() == View.VISIBLE) {
                     fab_1.setVisibility(View.INVISIBLE);
                     fab_2.setVisibility(View.INVISIBLE);
+                    fab_3.setVisibility(View.INVISIBLE);
                 }
                 if (mMap.getMyLocation() != null)
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude()), 15));
@@ -103,11 +115,32 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View view) {
                 FloatingActionButton fab_1 = (FloatingActionButton) findViewById(R.id.fab_1);
                 FloatingActionButton fab_2 = (FloatingActionButton) findViewById(R.id.fab_2);
+                FloatingActionButton fab_3 = (FloatingActionButton) findViewById(R.id.fab_3);
                 if (fab_2.getVisibility() == View.VISIBLE) {
                     fab_1.setVisibility(View.INVISIBLE);
                     fab_2.setVisibility(View.INVISIBLE);
+                    fab_3.setVisibility(View.INVISIBLE);
                 }
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(UPT));
+
+            }
+        });
+
+        fab_3.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("RestrictedApi")
+            @Override
+            public void onClick(View view) {
+                FloatingActionButton fab_1 = (FloatingActionButton) findViewById(R.id.fab_1);
+                FloatingActionButton fab_2 = (FloatingActionButton) findViewById(R.id.fab_2);
+                FloatingActionButton fab_3 = (FloatingActionButton) findViewById(R.id.fab_3);
+                if (fab_2.getVisibility() == View.VISIBLE) {
+                    fab_1.setVisibility(View.INVISIBLE);
+                    fab_2.setVisibility(View.INVISIBLE);
+                    fab_3.setVisibility(View.INVISIBLE);
+                }
+
+                LatLng ORIGEN = new LatLng(-18.0138696, -70.2511597);;
+                new RutaPractica(MainActivity.this,mMap,ORIGEN).execute();
 
             }
         });
@@ -176,5 +209,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapClick(LatLng latLng) {
         mMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+
     }
 }
