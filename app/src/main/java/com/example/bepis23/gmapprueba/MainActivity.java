@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private final LatLng UPT = new LatLng(-18.0038755, -70.225904);
     private GoogleMap mMap;
+    private boolean FAB_3 = false;
 
     private EditText editDesde;
     private EditText editHasta;
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
                 if (mMap.getMyLocation() != null)
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude()), 15));
+            FAB_3 = false;
             }
         });
 
@@ -106,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
                 if (mMap.getMyLocation() != null)
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude()), 15));
+            FAB_3=false;
             }
         });
 
@@ -122,28 +125,32 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     fab_3.setVisibility(View.INVISIBLE);
                 }
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(UPT));
-
+                FAB_3 = false;
             }
         });
 
         fab_3.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("RestrictedApi")
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 FloatingActionButton fab_1 = (FloatingActionButton) findViewById(R.id.fab_1);
                 FloatingActionButton fab_2 = (FloatingActionButton) findViewById(R.id.fab_2);
                 FloatingActionButton fab_3 = (FloatingActionButton) findViewById(R.id.fab_3);
-                if (fab_2.getVisibility() == View.VISIBLE) {
+                if (fab_3.getVisibility() == View.VISIBLE) {
                     fab_1.setVisibility(View.INVISIBLE);
                     fab_2.setVisibility(View.INVISIBLE);
                     fab_3.setVisibility(View.INVISIBLE);
                 }
-
-                LatLng ORIGEN = new LatLng(-18.0138696, -70.2511597);;
-                new RutaPractica(MainActivity.this,mMap,ORIGEN).execute();
-
+                FAB_3 = true;
+                mMap.clear();
+                Toast.makeText(getApplicationContext(), "Click en cualquier punto del mapa", Toast.LENGTH_SHORT).show();
             }
         });
+
+                //LatLng ORIGEN = new LatLng(-18.0138696, -70.2511597);;
+                //new RutaPractica(MainActivity.this,mMap,ORIGEN).execute();
+
+
 
 
         editDesde = (EditText)findViewById(R.id.editDesde);
@@ -163,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        Toast.makeText(getApplicationContext(), "Practica en el fab 3", Toast.LENGTH_LONG).show();
 
     }
 
@@ -208,7 +216,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapClick(LatLng latLng) {
-        mMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+        if (FAB_3){
+            mMap.clear();
+            String ubicacion = latLng.latitude + "," + latLng.longitude;
+            String destino = UPT.latitude + "," + UPT.longitude;
+            new RutaPractica(MainActivity.this,mMap,ubicacion,destino).execute();
+        } else{
+            mMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
 
+        }
     }
 }

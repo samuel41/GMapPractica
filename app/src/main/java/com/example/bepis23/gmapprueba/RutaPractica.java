@@ -30,13 +30,15 @@ public class RutaPractica extends AsyncTask<Void,Integer,Boolean> {
 
     private Context context;
     private GoogleMap gMap;
-    private LatLng markerOrigen;
+    private String markerOrigen;
+    private String destino;
     private final ArrayList<LatLng> lstLatLng = new ArrayList<LatLng>();
 
-    public RutaPractica(Context context, GoogleMap gMap, LatLng markerOrigen) {
+    public RutaPractica(Context context, GoogleMap gMap, String markerOrigen, String destino) {
         this.context = context;
         this.gMap = gMap;
         this.markerOrigen = markerOrigen;
+        this.destino = destino;
     }
 
     @Override
@@ -47,12 +49,9 @@ public class RutaPractica extends AsyncTask<Void,Integer,Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
         try{
-            final StringBuilder url = new StringBuilder("http://maps.googleapis.com/maps/api/directions/xml?sensor=false&language=pt");
-            url.append("&origin=");
-            url.append(markerOrigen.latitude);
-            url.append("+");
-            url.append(markerOrigen.longitude);
-            url.append("&destination=-18.0038755+-70.225904");
+            final StringBuilder url = new StringBuilder("https://maps.googleapis.com/maps/api/directions/xml?origin="+markerOrigen+"&destination="+destino+"&key=AIzaSyC-YYWOC3Kf7ALLdp9PnD3Vh3aIZ63KxSg");
+
+
             //coordenadas  -18.0038755, -70.225904
 
             //url.append(editHasta.replace(' ','+'));

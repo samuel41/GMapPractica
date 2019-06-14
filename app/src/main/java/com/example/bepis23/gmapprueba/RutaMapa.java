@@ -49,11 +49,12 @@ public class RutaMapa extends AsyncTask<Void,Integer,Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
         try{
-            final StringBuilder url = new StringBuilder("http://maps.googleapis.com/maps/api/directions/xml?sensor=false&language=pt");
+            final StringBuilder url = new StringBuilder("https://maps.googleapis.com/maps/api/directions/xml?origin="+editDesde+"&destination="+editHasta+"&key=AIzaSyC-YYWOC3Kf7ALLdp9PnD3Vh3aIZ63KxSg");
+            /*final StringBuilder url = new StringBuilder("http://maps.googleapis.com/maps/api/directions/xml?sensor=false&language=pt");
             url.append("&origin=");
             url.append(editDesde.replace(' ','+'));
             url.append("&destination=");
-            url.append(editHasta.replace(' ','+'));
+            url.append(editHasta.replace(' ','+'));*/
 
             final InputStream stream = new URL(url.toString()).openStream();
 
